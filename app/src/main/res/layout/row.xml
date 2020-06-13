@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:orientation="horizontal">
-
+    android:orientation="horizontal"
+    android:layout_margin="20dp">
     <ImageView
-        android:id="@+id/event_image"
         android:layout_width="75dp"
+        android:id="@+id/event_image"
         android:layout_height="75sp"
-        android:layout_margin="15dp"
         android:src="@drawable/ic_launcher_background"
-        android:visibility="visible" />
-
+        android:layout_margin="15dp"
+        android:visibility="visible"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:orientation="vertical">
-
         <TextView
-            android:id="@+id/event_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/colorAccent"
+            android:hint="@string/app_name"
+            android:textStyle="bold"
             android:textSize="20sp"
-            android:textStyle="bold" />
-
+            android:id="@+id/event_name"
+            android:textColor="@color/colorAccent"/>
         <TextView
-            android:id="@+id/event_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum "
-            android:textColor="@color/colorAccent" />
+            android:id="@+id/event_description"
+            android:textColor="@color/colorAccent"
+            android:hint="Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum "/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Slots filled : 1 / 10"/>
     </LinearLayout>
 
 

@@ -8,7 +8,7 @@
     tools:context=".Event_details">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/event_image"
         android:layout_width="match_parent"
         android:layout_height="200sp"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />

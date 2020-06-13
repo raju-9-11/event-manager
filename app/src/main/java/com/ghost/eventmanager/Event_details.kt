@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_event_details.*
 import org.w3c.dom.Text
+import java.util.*
 
 class Event_details : AppCompatActivity() {
 
@@ -26,6 +27,13 @@ class Event_details : AppCompatActivity() {
         setContentView(R.layout.activity_event_details)
 
         eventId = intent.extras?.get("Event_Id").toString()
+
+        val random = Random().nextInt(2) + 1
+        val drawableResource = when (random) {
+            1 -> R.drawable.pubg3
+            else -> R.drawable.pubg4
+        }
+        event_image.setImageResource(drawableResource)
 
         if (eventId != "") {
 
@@ -80,6 +88,7 @@ class Event_details : AppCompatActivity() {
     //For New event
     fun createevent(context: Context) {
         event_id.visibility = View.GONE
+
         add.setOnClickListener {
             val event = Eventmodel(
                 EventName = event_name.text.toString(),
