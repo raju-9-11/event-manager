@@ -1,4 +1,4 @@
-package com.ghost.eventmanager
+package com.ghost.eventmanager.Model
 
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
@@ -6,6 +6,7 @@ data class Eventmodel(
     val EventName: String,
     val EventDescription: String,
     val EventId: String
+
 )
 
 fun getevent(data: QueryDocumentSnapshot): Eventmodel {

@@ -1,39 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/input_background"
     android:orientation="horizontal"
-    android:layout_margin="20dp">
+    android:padding="20dp">
+
     <ImageView
-        android:layout_width="75dp"
         android:id="@+id/event_image"
+        android:layout_width="75dp"
         android:layout_height="75sp"
-        android:src="@drawable/ic_launcher_background"
         android:layout_margin="15dp"
-        android:visibility="visible"/>
+        android:src="@drawable/ic_launcher_background"
+        android:visibility="visible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:orientation="vertical">
+        android:background="@drawable/text_background"
+        android:orientation="vertical"
+        android:padding="20dp">
+
         <TextView
+            android:id="@+id/event_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/app_name"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:id="@+id/event_name"
-            android:textColor="@color/colorAccent"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/event_description"
             android:textColor="@color/colorAccent"
-            android:hint="Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum Loreipsum "/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/event_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Slots filled : 1 / 10"/>
+            android:hint="Slots filled : 1 / 10" />
     </LinearLayout>
 
 

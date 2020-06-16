@@ -1,18 +1,22 @@
 package com.ghost.eventmanager
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.ghost.eventmanager.Model.Eventmodel
+import com.ghost.eventmanager.Model.getevent
+import com.ghost.eventmanager.Model.toMap
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_event_details.*
-import org.w3c.dom.Text
 import java.util.*
 
-class Event_details : AppCompatActivity() {
+class Eventdetails : AppCompatActivity() {
 
     lateinit private var eventId: String
     //private var TAG = "Event_details"
@@ -30,7 +34,7 @@ class Event_details : AppCompatActivity() {
 
         val random = Random().nextInt(2) + 1
         val drawableResource = when (random) {
-            1 -> R.drawable.pubg3
+            1 -> R.drawable.pubg5
             else -> R.drawable.pubg4
         }
         event_image.setImageResource(drawableResource)
@@ -42,20 +46,19 @@ class Event_details : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener { documents ->
                     val events: MutableList<Eventmodel> = mutableListOf()
-                    var id = mutableListOf<String>()
+                    val id = mutableListOf<String>()
                     for (document in documents) {
-                        //Log.d(TAG, "${document.id} => ${document.data}")
                         events.add(getevent(document))
                         id.add(document.id)
                     }
+
                     set(events[0], id[0], this)
 
                 }
-                .addOnFailureListener { exception ->
-                    //Log.w(TAG, "Error getting documents: ", exception)
-                }
+                .addOnFailureListener { exception -> }
         } else {
-            createevent(this)
+            val prev_id = intent.extras?.get("Prev_Id").toString().toLong()
+            createevent(this, prev_id)
         }
 
 
@@ -64,6 +67,36 @@ class Event_details : AppCompatActivity() {
     //For Update event
     fun set(event: Eventmodel, id: String, context: Context) {
         add.text = "Update"
+        delete.visibility = View.VISIBLE
+        delete.setOnClickListener {
+            val dialog: AlertDialog
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Deleting Event")
+            val dialogClickListener = DialogInterface.OnClickListener { _, which ->
+                if (which == DialogInterface.BUTTON_POSITIVE) {
+                    db.collection("available_event").document(id)
+                        .delete()
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Event Deleted", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Error try again!!", Toast.LENGTH_SHORT).show()
+                        }
+
+                    val intent = Intent(this, EventListActivity::class.java)
+                    startActivity(intent)
+                }
+
+            }
+
+            builder.setMessage("The event ${event.EventName} will be deleted")
+            builder.setPositiveButton("YES", dialogClickListener)
+            builder.setNegativeButton("Cancel", dialogClickListener)
+            dialog = builder.create()
+            dialog.show()
+
+
+        }
         val name = findViewById<TextView>(R.id.event_name)
         val description = findViewById<TextView>(R.id.event_description)
         name.setText(event.EventName)
@@ -86,17 +119,17 @@ class Event_details : AppCompatActivity() {
     }
 
     //For New event
-    fun createevent(context: Context) {
+    fun createevent(context: Context, prev_id: Long) {
         event_id.visibility = View.GONE
 
         add.setOnClickListener {
             val event = Eventmodel(
                 EventName = event_name.text.toString(),
                 EventDescription = event_description.text.toString(),
-                EventId = "2"
+                EventId = "${prev_id + 1}"
             )
             query.add(event.toMap()).addOnSuccessListener {
-                Toast.makeText(this, "Sucess", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
             }
                 .addOnFailureListener {
                     Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show()
